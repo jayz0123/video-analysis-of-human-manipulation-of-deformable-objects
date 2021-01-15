@@ -1,5 +1,5 @@
 # video-analysis-of-human-manipulation-of-deformable-objects
-MSc project at Imperial College London
+MSc project @ Imperial College London
 
 ## Project Discription
 There is considerable work on recognising and learning actions from videos, with applications to automatic caption generation,
