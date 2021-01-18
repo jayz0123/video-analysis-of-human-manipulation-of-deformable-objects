@@ -20,11 +20,11 @@ background (e.g. Python/C++) since you will be programming a fairly elaborate co
 interest in AI is preferred, since you will be researching algorithms and data structures for representing both human movements
 and the deformation of strings.
 
-[1] K Lee et al, A syntactic approach to robot imitation learning using probabilistic activity grammars, Robotics and Autonomous
+- [1] K Lee et al, A syntactic approach to robot imitation learning using probabilistic activity grammars, Robotics and Autonomous
 Systems Journal, http://khlee.org/papers/lee-ras13.pdf
-[2] Hu et al, A review on modeling of flexible deformable object for dexterous robotic manipulation, IJARS,
+- [2] Hu et al, A review on modeling of flexible deformable object for dexterous robotic manipulation, IJARS,
 https://journals.sagepub.com/doi/full/10.1177/1729881419848894
-[3] Sanchez et al, Robotic manipulation and sensing of deformable objects in domestic and industrial applications: a survey,
+- [3] Sanchez et al, Robotic manipulation and sensing of deformable objects in domestic and industrial applications: a survey,
 IJRR, 2018, https://journals.sagepub.com/doi/pdf/10.1177/0278364918779698
 
 ## Contents
