@@ -1,3 +1,4 @@
 Object,Task,Object CV Method,Task CV Method,Object Representation,Task Representation,Available Dataset,Paper URL
 utensils and food,cooking,CNN,CNN and Gigaword corpus,image patches,semantic trees,"http://web.eecs.umich.edu/~jjcorso/r/youcook/","http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.851.5758&rep=rep1&type=pdf"
 food and tools,cooking and manufacturing,colour segmentation,"hand trajectories and grasp, and the consequence of the object",active colour segmentation,semantic trees,N/A,"https://www.researchgate.net/publication/272165337_A_Cognitive_System_for_Understanding_Human_Manipulation_Actions"
+linear objects,knotting and unknotting,grayscale image,grayscale image,topological crossing states,crossing state transitions,N/A,"https://journals.sagepub.com/doi/abs/10.1177/0278364906064819"
