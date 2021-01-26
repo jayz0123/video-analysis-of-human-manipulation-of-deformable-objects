@@ -3,3 +3,4 @@ utensils and food,cooking,CNN,CNN and Gigaword corpus,image patches,semantic tre
 food and tools,cooking and manufacturing,colour segmentation,"hand trajectories and grasp, and the consequence of the object",active colour segmentation,semantic trees,N/A,"https://www.researchgate.net/publication/272165337_A_Cognitive_System_for_Understanding_Human_Manipulation_Actions"
 linear objects,knotting and unknotting,grayscale image,grayscale image,topological crossing states,crossing state transitions,N/A,N/A
 "prismatic, round, flat, and deformable",grasps,feature tracking with linear SVM,feature tracking with linear SVM,image patches,semantic action model,"http://cbs.ic.gatech.edu/fpv/","http://www.roboticsproceedings.org/rss12/p34.pdf"
+ropes,manipulating a rope,N/A,CNN,point segmentation,probability distribution,Active dataset,N/A
