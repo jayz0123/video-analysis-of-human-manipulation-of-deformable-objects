@@ -4,5 +4,5 @@ food and tools,cooking and manufacturing,colour segmentation,"hand trajectories 
 linear objects,knotting and unknotting,grayscale image,grayscale image,topological crossing states,crossing state transitions,N/A,N/A
 "prismatic, round, flat, and deformable",grasps,feature tracking with linear SVM,feature tracking with linear SVM,image patches,semantic action model,"http://cbs.ic.gatech.edu/fpv/","http://www.roboticsproceedings.org/rss12/p34.pdf"
 ropes,manipulation,N/A,CNN,point segmentation,probability distribution,active dataset,N/A
-"towel, plastic sheet, and fabric",manipulation,Gaussian Process Regression,Gaussian Process Regression,discrete points,deformation function,N/A,N/Active
+"towel, plastic sheet, and fabric",manipulation,Gaussian Process Regression,Gaussian Process Regression,discrete points,deformation function,N/A,N/A
 "towel, plastic sheet, and fabric",manipulation,model fitting,model fitting,discrete points,DNN,N/A,N/A
