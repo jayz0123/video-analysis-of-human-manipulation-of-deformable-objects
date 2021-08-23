@@ -2,18 +2,29 @@ import numpy as np
 import cv2 as cv
 import glob
 from itertools import zip_longest
-from detectors.hole_detector import *
-from detectors.hand_detector import *
+from mmpose.apis import vis_pose_result
+from detectors.hole_detector import HoleDetector
+from detectors.hand_detector import HandDetector
+from detectors.aglet_detector import AgletDetector
 
 
 class VideoHandler():
-    def __init__(self, rgb_path: str, depth_path: str, hole_detecting=False, hand_detecting=False):
+    def __init__(self,
+                 rgb_path: str,
+                 depth_path: str,
+                 hole_detecting=False,
+                 hand_detecting=False,
+                 aglet_detecting=False):
         self.rgb_frames = []
         self.depth_frames = []
-        self.hole_keypoints_all_frames = []
-        self.hand_bboxes_all_frames = []
+
         self.hole_detecting = hole_detecting
         self.hand_detecting = hand_detecting
+        self.aglet_detecting = aglet_detecting
+
+        self.hole_keypoints_all_frames = []
+        self.hand_bboxes_all_frames = []
+        self.aglet_bbox_all_frames = []
 
         for filename in sorted(glob.glob(rgb_path + 'frame*.png')):
             rgb_frame = cv.imread(filename, cv.IMREAD_ANYCOLOR | cv.IMREAD_ANYDEPTH)
@@ -27,13 +38,19 @@ class VideoHandler():
             hole_detector = HoleDetector()
 
             for frame in self.rgb_frames:
-                self.hole_keypoints_all_frames.append(hole_detector.detect_keypoints(frame))
+                self.hole_keypoints_all_frames.append(hole_detector.detect(frame))
 
         if self.hand_detecting:
             self.hand_detector = HandDetector()
 
             for frame in self.rgb_frames:
                 self.hand_bboxes_all_frames.append(self.hand_detector.detect(frame))
+
+        if self.aglet_detecting:
+            self.aglet_detector = AgletDetector()
+
+            for frame in self.rgb_frames:
+                self.aglet_bbox_all_frames.append(self.aglet_detector.detect(frame))
 
     def _visualise_depth_frame(self, frame):
         normed = cv.normalize(frame, None, 0, 255, cv.NORM_MINMAX, dtype=cv.CV_8UC1)
@@ -67,18 +84,33 @@ class VideoHandler():
 
         return rendered_frame
 
+    def _render_aglet_bbox(self, frame, bbox):
+        if len(bbox) == 0:
+            return frame
+
+        overlay = frame.copy()
+        cv.drawContours(overlay, [bbox], 0, (0, 255, 255), 2)
+
+        rendered_frame = overlay
+
+        return rendered_frame
+
     def replay(self, mode: str):
         # play the rgb video
         if mode == 'rgb':
-            for frame, hole_keypoints, hand_bboxes in zip_longest(
+            for frame, hole_keypoints, hand_bboxes, aglet_bbox in zip_longest(
                     self.rgb_frames,
                     self.hole_keypoints_all_frames,
-                    self.hand_bboxes_all_frames):
+                    self.hand_bboxes_all_frames,
+                    self.aglet_bbox_all_frames):
                 if self.hole_detecting:
                     frame = self._render_hole_keypoints(frame, hole_keypoints)
 
                 if self.hand_detecting:
                     frame = self._render_hand_bboxes(frame, hand_bboxes)
+
+                if self.aglet_detecting:
+                    frame = self._render_aglet_bbox(frame, aglet_bbox)
 
                 cv.imshow('RGB', frame)
 

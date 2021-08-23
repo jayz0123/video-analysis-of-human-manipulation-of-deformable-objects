@@ -1,22 +1,23 @@
 import cv2 as cv
-from mmpose.apis import inference_top_down_pose_model, init_pose_model, vis_pose_result
+from mmpose.apis import inference_top_down_pose_model, init_pose_model
 from mmdet.apis import inference_detector, init_detector
 
 
 class HandDetector():
     def __init__(self):
-        # self.det_config = 'detectors/configs/cascade_rcnn/cascade_rcnn_x101_64x4d_fpn_1class.py'
-        # self.det_checkpoint = 'detectors/checkpoints/cascade_rcnn_x101_64x4d_fpn_20e_onehand10k-dac19597_20201030.pth'
-        # self.pose_config = 'detectors/configs/hand/2d_kpt_sview_rgb_img/topdown_heatmap/onehand10k/res50_onehand10k_256x256.py'
-        # self.pose_checkpoint = 'detectors/checkpoints/res50_onehand10k_256x256-e67998f6_20200813.pth'
-        self.det_config = 'detectors/configs/cascade_rcnn/cascade_rcnn_x101_64x4d_fpn_20e_coco.py'
-        self.det_checkpoint = 'detectors/checkpoints/cascade_rcnn_x101_64x4d_fpn_20e_coco_20200509_224357-051557b1.pth'
-        self.pose_config = 'detectors/configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py'
-        self.pose_checkpoint = 'detectors/checkpoints/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth'
+        self.det_config = 'detectors/configs/mmdet_configs/cascade_rcnn/cascade_rcnn_x101_64x4d_fpn_1class.py'
+        self.det_checkpoint = 'detectors/checkpoints/cascade_rcnn_x101_64x4d_fpn_20e_onehand10k-dac19597_20201030.pth'
+        self.pose_config = 'detectors/configs/mmpose_configs/hand/2d_kpt_sview_rgb_img/topdown_heatmap/onehand10k/res50_onehand10k_256x256.py'
+        self.pose_checkpoint = 'detectors/checkpoints/res50_onehand10k_256x256-e67998f6_20200813.pth'
+        # self.det_config = 'detectors/configs/cascade_rcnn/cascade_rcnn_x101_64x4d_fpn_20e_coco.py'
+        # self.det_checkpoint = 'detectors/checkpoints/cascade_rcnn_x101_64x4d_fpn_20e_coco_20200509_224357-051557b1.pth'
+        # self.pose_config = 'detectors/configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py'
+        # self.pose_checkpoint = 'detectors/checkpoints/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth'
+
         self.device = 'cuda:0'
         self.det_cat_id = 1
-        self.bbox_threshold = 0.3
-        self.kpt_threshold = 0.3
+        self.bbox_threshold = 0.5
+        self.kpt_threshold = 0.5
         self.kpt_radius = 4
         self.thickness = 1
 
@@ -24,7 +25,6 @@ class HandDetector():
         self.det_model = init_detector(self.det_config, self.det_checkpoint, device=self.device.lower())
         self.pose_model = init_pose_model(self.pose_config, self.pose_checkpoint, device=self.device.lower())
         self.dataset = self.pose_model.cfg.data['test']['type']
-        self.pose_results = None
 
     def _process_det_results(self, det_results, cat_id=1):
         if isinstance(det_results, tuple):
